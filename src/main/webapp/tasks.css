@@ -1,0 +1,10 @@
+.task-item{
+    display: flex;
+    min-width: 500px;
+    max-width: 600px;
+    min-height: 200px;
+    background-color: #e7e7e7;
+}
+.task-name{
+    display: flex;
+}
