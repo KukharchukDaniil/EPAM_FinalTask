@@ -1,0 +1,77 @@
+body {
+    font-family: Helvetica, sans-serif;
+    margin: 0;
+    line-height: 30px;
+    overflow: overlay;
+    font-size: 14px;
+}
+
+header {
+    width: 100%;
+    background: linear-gradient(#00d595, #00b17c);
+    color: white;
+    padding: 1% 0 1% 0px;
+    text-align: center;
+    z-index: 9;
+    cursor: default;
+}
+
+nav {
+    width: auto;
+    padding: 0 10%;
+    background-color: #272727;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav a {
+    display: block;
+    color: #fcfcfc;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    float: left;
+
+}
+.note{
+    display: block;
+    color: #fcfcfc;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    float: left;
+}
+.active{
+    background-color: #5056a8eb;
+}
+.nav_button {
+    height: 100%;
+    width: auto;
+    font-size: 17px;
+    background-color: #272727;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    float: left;
+
+}
+
+nav a:hover {
+    background-color: rgb(99, 99, 99);
+    color: #fcfcfc;
+}
+role{
+    background-color: #fcfcfc;
+    border: 1px solid #fcfcfc;
+    border-radius: 4px;
+    -webkit-font-smoothing: antialiased;
+    color: #262626;
+}
+
+

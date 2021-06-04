@@ -1,0 +1,431 @@
+body {
+    font-family: Monserrat, sans-serif;
+    margin: 0;
+    line-height: 30px;
+    overflow: overlay;
+    font-size: 14px;
+}
+
+header {
+    width: 100%;
+    background: linear-gradient(#00d595, #00b17c);
+    color: white;
+    padding: 1% 0 1% 0px;
+    text-align: center;
+    z-index: 9;
+    cursor: default;
+}
+
+nav {
+    width: auto;
+    padding: 0 10%;
+    background-color: #272727;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav a {
+    display: block;
+    color: #fcfcfc;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    float: left;
+
+}
+
+.active {
+    background-color: #5056a8eb;
+}
+
+.nav_button {
+    height: 100%;
+    width: auto;
+    font-size: 17px;
+    background-color: #272727;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    float: left;
+
+}
+
+nav a:hover {
+    background-color: rgb(99, 99, 99);
+    color: #fcfcfc;
+}
+
+
+.main-contents {
+    margin-left: 0;
+    padding: 15px 15px;
+    height: max-content;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+
+@media (max-width: 1450px) {
+    .main-contents {
+        padding: 15px 15px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1110px;
+    }
+}
+
+.main-contents {
+    margin-left: 0;
+    padding: 15px 15px;
+    height: max-content;
+    display: flex;
+    flex-direction: row;
+}
+
+.menu {
+    min-width: 185px;
+    background: #ededed;
+    margin-right: 15px;
+    border-bottom: 1px solid #b6b6b6;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contents {
+    width: -webkit-fill-available;
+    background: white;
+    min-width: 300px;
+    border: 1px solid #b6b6b6;
+}
+
+a.menu-button {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 40px;
+    justify-content: center;
+    color: black;
+    text-decoration: none;
+    background: #ffffff;
+    border: 1px solid #b6b6b6;
+    border-bottom: none;
+    cursor: pointer;
+}
+
+a.menu-button:hover {
+    background: #d9edf7;
+}
+
+a.menu-button.active {
+    background: #5056a8eb;
+    color: white;
+}
+
+.tabcontent {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabcontent#Tasks {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    border-bottom: none;
+}
+
+.name {
+    padding: 6px;
+    background-color: #fafafa;
+    border-bottom: 1px solid lightgray;
+}
+
+.description {
+    padding: 6px;
+}
+
+.list-item {
+    display: flex;
+    flex-direction: row;
+    /* padding: 2px; */
+    min-height: 50px;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: 1px solid lightgrey;
+}
+
+.task-name {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 14px;
+    min-width: 200px;
+    background: #fafafa;
+    justify-content: flex-start;
+    border-right: 1px solid lightgrey;
+}
+
+.task-name.solved {
+    background: #719872;
+    color: white;
+}
+
+.task-description {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 14px;
+}
+
+.task-description.solved {
+    background: #eaffea;
+}
+
+.modal-pane {
+    position: absolute;
+    /* margin: 20% 50%; */
+    min-width: 300px;
+    min-height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    align-content: center;
+    justify-content: center;
+    background: linear-gradient(rgba(118, 65, 65, 0.61), rgba(52, 18, 18, 0.65));
+}
+
+.modal {
+    border: 3px solid #272727;
+    padding: 13px;
+    margin-bottom: 10%;
+    min-width: 270px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    background: #333333;
+}
+
+.question {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.answer-pane {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    text-decoration: none;
+    color: black;
+}
+
+a.modal-button {
+    width: 110px;
+    height: 31px;
+    display: flex;
+    border: 3px solid #535353;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    background: #5056a8eb;
+    color: white;
+}
+
+a.modal-button:visited {
+    text-decoration: none;
+}
+
+a.modal-button:hover {
+    background: rgba(55, 58, 116, 0.92);
+    color: white;
+}
+
+a.tab-button {
+    /* height: 100%; */
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    padding: 4px;
+    background: #5056a8eb;
+    color: white;
+    border-left: 4px solid #818181;
+    align-items: center;
+    cursor: pointer;
+    width: 100px;
+}
+
+a.tab-button:hover {
+    background: rgba(54, 57, 108, 0.92);
+    color: white;
+}
+
+form.solution-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 300px;
+}
+
+.pagination {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+a.pagination-link {
+    text-decoration: none;
+    min-width: 20px;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
+    background-color: rgba(168, 80, 80, 0.92);
+    flex-wrap: wrap;
+    color: white;
+    align-content: center;
+    justify-content: center;
+    margin: 3px;
+}
+
+a.pagination-link:hover {
+    opacity: 0.7;
+}
+
+a.pagination-link.active {
+    background: #5e2a2a;
+}
+
+form.grading-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    min-height: 200px;
+}
+
+.status {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    /* height: 100%; */
+    min-width: 125px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid lightgray;
+}
+
+.mark {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    max-width: 100px;
+    min-width: 100px;
+    border-right: 1px solid lightgray;
+}
+
+.modal-block {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+
+form textarea, input {
+    margin-bottom: 20px;
+}
+
+a.add-task-button {
+    display: flex;
+    height: 40px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    color: white;
+    background: rgb(168 80 80 / 100%);
+    justify-content: center;
+    cursor: pointer;
+}
+a.add-task-button:hover {
+opacity: 0.7;
+}
+form.add-task-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.container {
+    margin: 5% auto 15% auto;
+    min-width: 270px;
+    max-width: 300px;
+    color: rgb(139, 139, 139);
+    background-color: #333;
+    padding: 10px;
+
+    border: 0px;
+}
+
+input[type=text], input[type=password], textarea, select{
+    width: 100%;
+    padding: 12px;
+    display: inline-block;
+    margin: 7px 0px 7px 0px;
+    border: 5px solid #5056a8eb;
+    background-color: #333;
+    border-radius: 0px;
+    box-sizing: border-box;
+    outline: none;
+    color: rgb(224, 224, 224);
+}
+
+input,textarea:focus {
+    border-color: rgba(93, 100, 191, 0.92);
+    background-color: rgb(61, 61, 61);
+}
+
+button {
+    background-color: #5056a8eb;
+    color: white;
+    padding: 4px;
+    margin: 7px 0px 0px 0px;
+    border: 0px solid #5056a8eb;
+    border-radius: 0px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 25px;
+    outline: none;
+}
+
+button:hover {
+    background-color: rgba(89, 96, 194, 0.92);
+    border-color: #5960C2EB;
+}

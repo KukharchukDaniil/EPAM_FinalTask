@@ -1,0 +1,81 @@
+body {
+    font-family: Helvetica, sans-serif;
+    background: linear-gradient(#f38fff, #ef9c91);
+    margin: 0;
+    line-height: 30px;
+}
+.header {
+
+    width: 100%;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 25px;
+    font-weight: 500;
+    color: white;
+    cursor: default;
+    background-color: #5056a8eb;
+    padding: 6px 10px;
+    margin: 7px 0px 7px 0px;
+
+}
+form.registration-form {
+    background: #333;
+    display: flex;
+    margin: 5% auto 15% auto;
+    padding: 10px;
+    min-width: 200px;
+    max-width: 270px;
+    min-height: 290px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-around;
+}
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px;
+    display: inline-block;
+    margin: 7px 0px 7px 0px;
+    border: 5px solid #5056a8eb;
+    background-color: #333;
+    border-radius: 0px;
+    box-sizing: border-box;
+    outline: none;
+    color: rgb(224, 224, 224);
+}
+input:focus {
+    border-color: #5056a8eb;
+    background-color: rgb(61, 61, 61);
+}
+
+button {
+    background-color: #5056a8eb;
+    color: white;
+    padding: 4px;
+    margin: 7px 0px 0px 0px;
+    border: 0px solid #5056a8eb;
+    border-radius: 0px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 25px;
+    outline: none;
+}
+
+button:hover {
+    background-color: #5056a8eb;
+    border-color: #5056a8eb;
+}
+.error_message{
+    color: #e64848;
+    font-size: 0.8rem;
+}
+.login-link{
+    color: #acbaa8;
+    font-size: 0.8rem;
+}
+.login-link:visited{
+    color: #acbaa8;
+    font-size: 0.8rem;
+}
