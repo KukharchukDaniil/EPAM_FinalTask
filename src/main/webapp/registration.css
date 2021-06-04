@@ -1,9 +1,10 @@
 body {
     font-family: Helvetica, sans-serif;
-    background: linear-gradient(#f38fff, #ef9c91);
+    background: linear-gradient(#ff8f8f, #7a4242);
     margin: 0;
     line-height: 30px;
 }
+
 .header {
 
     width: 100%;
@@ -20,6 +21,7 @@ body {
     margin: 7px 0px 7px 0px;
 
 }
+
 form.registration-form {
     background: #333;
     display: flex;
@@ -33,6 +35,7 @@ form.registration-form {
     align-content: center;
     justify-content: space-around;
 }
+
 input[type=text], input[type=password] {
     width: 100%;
     padding: 12px;
@@ -45,6 +48,7 @@ input[type=text], input[type=password] {
     outline: none;
     color: rgb(224, 224, 224);
 }
+
 input:focus {
     border-color: #5056a8eb;
     background-color: rgb(61, 61, 61);
@@ -67,15 +71,38 @@ button:hover {
     background-color: #5056a8eb;
     border-color: #5056a8eb;
 }
-.error_message{
+
+.error_message {
     color: #e64848;
     font-size: 0.8rem;
 }
-.login-link{
+
+.login-link {
     color: #acbaa8;
     font-size: 0.8rem;
 }
-.login-link:visited{
+
+.login-link:visited {
     color: #acbaa8;
     font-size: 0.8rem;
+}
+
+.locale {
+    /* position: absolute; */
+    /* float: right; */
+    /* x: 522px; */
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    /* height: 10%; */
+    align-content: flex-start;
+}
+
+.locale a {
+    padding: 6px;
+    text-decoration: none;
+    color: white;
+    background: #333;
+    margin: 2px;
+    line-height: 1rem;
 }

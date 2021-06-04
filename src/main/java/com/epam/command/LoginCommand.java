@@ -18,7 +18,7 @@ public class LoginCommand implements Command {
     private static final Integer DEFAULT_PAGE = 1;
     private static final String USERNAME = "login";
     private static final String PASSWORD = "password";
-
+    private static final String USER = "user";
     public LoginCommand(UserService service) {
         this.userService = service;
     }
@@ -32,7 +32,7 @@ public class LoginCommand implements Command {
         optionalUser = userService.login(username, password);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            session.setAttribute("user", user);
+            session.setAttribute(USER, user);
             request.setAttribute(PAGE,DEFAULT_PAGE);
             response.addCookie(new Cookie(USERNAME, username));
             response.addCookie(new Cookie(PASSWORD, password));

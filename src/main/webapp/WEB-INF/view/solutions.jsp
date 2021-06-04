@@ -1,9 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="pagination" uri="https://epam.com/jsp/tlds/mytags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ page import="com.epam.entities.UserRole" %>
 <%@ page import="com.epam.entities.SolutionStatus" %>
 <c:set var="pageIndex" value="${not empty param.pageIndex?param.pageIndex : 1}"/>
+<c:set var="lang"
+       value="${param.lang!= null?param.lang : sessionScope.lang != null? sessionScope.lang : pageContext.request.locale}"/>
+<fmt:setLocale value="${lang}" scope="session"/>
+<fmt:setBundle basename="language" scope="session"/>
 <html>
 <head>
     <meta charset='utf-8'>
@@ -16,20 +21,38 @@
 <nav>
     <div>
         <a href="${pageContext.request.contextPath}/controller?command=mainPage">
-            Home
+            <fmt:message key="label.home"/>
         </a>
         <a href="${pageContext.request.contextPath}/controller?command=myCourses">
-            My courses
-        </a>
-        <a>
-            Find course
+            <fmt:message key="label.my_courses"/>
         </a>
     </div>
     <div>
-        <a href="${pageContext.request.contextPath}/controller?command=account_info">Account info</a>
-        <a href="${pageContext.request.contextPath}/controller?command=logout">Log out</a>
+        <a href="${pageContext.request.contextPath}/controller?command=setLocale&lang=ru">ru</a>
+        <a href="${pageContext.request.contextPath}/controller?command=setLocale&lang=eng">eng</a>
+        <a href="${pageContext.request.contextPath}/controller?command=setLocale&lang=de">de</a>
+        <a onclick="openModal('account-modal')" style="cursor: pointer"><fmt:message key="label.account"/></a>
+        <a href="${pageContext.request.contextPath}/controller?command=logout"><fmt:message key="label.logout"/></a>
     </div>
 </nav>
+<div class="modal-pane" id="account-modal">
+    <div class="modal">
+        <div class="modal-block">
+            <div><fmt:message key="label.name"/> </div>
+            ${user.name}
+        </div>
+        <div class="modal-block">
+            <div><fmt:message key="label.username"/> </div>
+            ${user.username}
+        </div>
+        <div class="modal-block">
+            <div><fmt:message key="label.role"/> </div>
+            ${user.role}
+        </div>
+        <button onclick="closeModal('account-modal')"><fmt:message key="label.close"/></button>
+
+    </div>
+</div>
 <div>
 
     <c:forEach items="${solutionTaskDtoList}" var="dto">
@@ -39,17 +62,17 @@
                     <form action="${pageContext.request.contextPath}/controller" method="post" class="grading-form">
                         <div class="modal-block">
                             <div>Task name:</div> ${dto.taskName}</div>
-                        <div class="modal-block"><div>Description:</div> ${dto.taskDescription}</div>
-                        <div class="modal-block"><div>Solution:</div> ${dto.solutionValue}</div>
+                        <div class="modal-block"><div><fmt:message key="label.description"/>:</div> ${dto.taskDescription}</div>
+                        <div class="modal-block"><div><fmt:message key="label.solution"/>:</div> ${dto.solutionValue}</div>
                         <input type="hidden" value="gradeSolution" name="command"/>
                         <input type="hidden" value="${dto.taskId}" name="taskId"/>
                         <input type="hidden" value="${dto.solutionId}" name="solutionId"/>
                         <input type="hidden" value="${dto.solutionValue}" name="value"/>
                         <input type="hidden" value="${dto.userId}" name="userId"/>
                         <input type="hidden" value="${course.id}" name="courseId"/>
-                        <textarea name="solutionComment" placeholder="Comment here"></textarea>
-                        <input max="10" min="0" name="solutionMark" required="true" type="number" placeholder="Mark.."/>
-                        <input type="submit" value="Submit" />
+                        <textarea name="solutionComment" placeholder="<fmt:message key="label.comment"/>"></textarea>
+                        <input max="10" min="0" name="solutionMark" required="true" type="number" placeholder="<fmt:message key="label.mark"/>.."/>
+                        <input type="submit" value="<fmt:message key="label.submit"/>" />
                     </form>
                 </div>
             </div>
@@ -57,12 +80,12 @@
     </c:forEach>
     <div class="main-contents">
         <div class="menu">
-            <a class="menu-button" onclick="openTab(event, 'About')">About course</a>
+            <a class="menu-button" onclick="openTab(event, 'About')"><fmt:message key="label.about_course"/></a>
 
             <c:if test="${user.role == UserRole.TEACHER}">
-                <a class="menu-button" onclick="openTab(event, 'Solutions')" id="defaultOpen">Solutions</a>
+                <a class="menu-button" onclick="openTab(event, 'Solutions')" id="defaultOpen"><fmt:message key="label.solutions"/></a>
                 <a class="menu-button"
-                   href="${pageContext.request.contextPath}/controller?command=showCourse&courseId=${course.id}">Tasks</a>
+                   href="${pageContext.request.contextPath}/controller?command=showCourse&courseId=${course.id}"><fmt:message key="label.tasks"/></a>
             </c:if>
         </div>
         <div class="contents">
@@ -72,13 +95,13 @@
             </div>
             <div class="tabcontent" id="Solutions">
                 <div class="list-item">
-                    <div class="task-name">Task name</div>
-                    <div class="status">Solution status</div>
-                    <div class="mark">Mark</div>
-                    <div class="task-description">Task description</div>
+                    <div class="task-name"><fmt:message key="label.task_name"/></div>
+                    <div class="status"><fmt:message key="label.solution_status"/></div>
+                    <div class="mark"><fmt:message key="label.mark"/></div>
+                    <div class="task-description"><fmt:message key="label.description"/></div>
                 </div>
                 <c:if test="${solutionTaskDtoList.isEmpty()}">
-                    <div class="task-name"> No solutions available</div>
+                    <div class="task-name"> <fmt:message key="label.no_solution"/></div>
                 </c:if>
                 <c:forEach var="solution" items="${solutionTaskDtoList}">
                     <div class="list-item">
@@ -89,7 +112,7 @@
                         <c:if test="${user.role == UserRole.ADMIN || user.role == UserRole.TEACHER &&
                          solution.solutionStatus != SolutionStatus.GRADED}">
                             <a class="tab-button" style="background: #5056a8eb; text-decoration: none"
-                               onclick="openModal('${solution.solutionId}')">Evaluate</a>
+                               onclick="openModal('${solution.solutionId}')"><fmt:message key="label.evaluate"/></a>
                         </c:if>
                     </div>
                 </c:forEach>

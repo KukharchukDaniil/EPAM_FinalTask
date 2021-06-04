@@ -355,8 +355,9 @@ form.grading-form {
     flex-wrap: nowrap;
     align-content: flex-start;
     align-items: flex-start;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 3px solid #4e539e;
     margin-bottom: 20px;
+    color: white;
 }
 
 form textarea, input {

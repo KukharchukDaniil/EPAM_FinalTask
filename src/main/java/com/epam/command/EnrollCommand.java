@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 public class EnrollCommand implements Command{
     private UserService userService;
+    private static final String USER = "user";
     public EnrollCommand(UserService userService) {
         this.userService = userService;
     }
@@ -16,11 +17,8 @@ public class EnrollCommand implements Command{
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute(USER);
         Integer courseId = Integer.valueOf(request.getParameter("courseId"));
-        if(user == null){
-            throw new IllegalArgumentException("Unauthorized access!!!");
-        }
         userService.enrollOnCourse(courseId,user.getId());
         return CommandResult.redirect(CommandFactory.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
     }

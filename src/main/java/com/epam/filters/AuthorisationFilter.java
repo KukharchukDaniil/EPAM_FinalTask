@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class AuthorisationController implements Filter {
+public class AuthorisationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -31,7 +31,7 @@ public class AuthorisationController implements Filter {
         String command = request.getParameter("command");
         if (session.getAttribute("user") == null && command != null && !command.equals("login")
                 && !command.equals("loginPage") && !command.equals("loginError") && !command.equals("registrationPage")
-                && !command.equals("signUp")) {
+                && !command.equals("signUp") &&!command.equals("setLocale")) {
             response.sendRedirect(request.getContextPath() + "/controller?command=" + CommandFactory.SHOW_LOGIN_PAGE);
             return;
         }

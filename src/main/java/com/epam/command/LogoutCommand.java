@@ -11,7 +11,6 @@ public class LogoutCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
         session.setAttribute("user",null);
-        session.invalidate();
         return CommandResult.redirect(CommandFactory.SHOW_LOGIN_PAGE);
     }
 }

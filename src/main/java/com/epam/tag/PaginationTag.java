@@ -41,13 +41,13 @@ public class PaginationTag extends SimpleTagSupport {
         Writer out = getJspContext().getOut();
         try {
             if (currentPage > 1) {
-                out.write(buildPaginationItem(currentPage - 1, "Previous"));
+                out.write(buildPaginationItem(currentPage - 1, "<<"));
             }
             for (int i = startPage; i <= endPage; i++) {
                 out.write(buildPaginationItem(i, String.valueOf(i)));
             }
             if (currentPage < numberOfPages) {
-                out.write(buildPaginationItem(currentPage + 1, "Next"));
+                out.write(buildPaginationItem(currentPage + 1, ">>"));
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="pagination" uri="https://epam.com/jsp/tlds/mytags" %>
+<c:set var="lang"
+       value="${param.lang!= null?param.lang : sessionScope.lang != null? sessionScope.lang : pageContext.request.locale}"/>
+<fmt:setLocale value="${lang}" scope="session"/>
+<fmt:setBundle basename="language" scope="session"/>
 <html>
 <head>
     <meta charset='utf-8'>

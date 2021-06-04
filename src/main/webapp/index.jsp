@@ -1,5 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+
+<c:set var="lng"
+       value="${param.lang!= null?param.lang : sessionScope.lang != null? sessionScope.lang : pageContext.request.locale}"/>
+<fmt:setLocale value="${lang}" scope="session"/>
+<fmt:setBundle basename="language" scope="session"/>
 <html>
 <head>
     <meta charset='utf-8'>
@@ -9,6 +15,11 @@
     <link rel='stylesheet' type='text/css' media='screen' href='login.css'>
 </head>
 <body>
+<div class="locale">
+    <a href="${pageContext.request.contextPath}/controller?command=setLocale&lang=ru">ru</a>
+    <a href="${pageContext.request.contextPath}/controller?command=setLocale&lang=eng">eng</a>
+    <a href="${pageContext.request.contextPath}/controller?command=setLocale&lang=de">de</a>
+</div>
 
 <div class="container">
     <div class="header">
@@ -16,15 +27,14 @@
     </div>
     <form action="${pageContext.request.contextPath}/controller" method="post">
         <input type="hidden" name="command" value="login"/>
-        <input type="text" name="login" required placeholder="Enter username"/>
-        <input type="password" name="password" required placeholder="Enter password"/>
+        <input type="text" name="login" required placeholder="<fmt:message key="label.login_placeholder"/>"/>
+        <input type="password" name="password" required placeholder="<fmt:message key="label.password_placeholder"/>"/>
         <c:if test="${error==true}">
-            <div class="error_message">Wrong username or password</div>
+            <div class="error_message"><fmt:message key="label.auth_error"/></div>
         </c:if>
-        <div><a href="${pageContext.request.contextPath}/controller?command=registrationPage" class="registration-link">Not
-            registered yet?
-            Register now</a></div>
-        <button type="submit" value="submit">Log in</button>
+        <div><a href="${pageContext.request.contextPath}/controller?command=registrationPage" class="registration-link"><fmt:message
+                key="label.to_registration_page"/></a></div>
+        <button type="submit" value="submit"><fmt:message key="label.logIn"/></button>
     </form>
 
 </div>

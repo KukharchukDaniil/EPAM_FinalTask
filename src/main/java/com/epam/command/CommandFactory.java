@@ -20,12 +20,15 @@ public class CommandFactory {
     public static final String SHOW_SOLUTIONS = "showSolutions";
     public static final String GRADE_SOLUTION = "gradeSolution";
     public static final String ADD_TASK = "addTask";
+    public static final String SET_LOCALE = "setLocale";
 
     public CommandFactory() {
     }
 
     public Command create(String commandName) throws IllegalArgumentException, DaoException {
         switch (commandName) {
+            case SET_LOCALE:
+                return new SetLocaleCommand();
             case ADD_TASK:
                 return new AddTaskCommand();
             case GRADE_SOLUTION:
