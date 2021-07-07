@@ -10,7 +10,6 @@ import com.epam.exceptions.ServiceException;
 import com.epam.service.CourseService;
 import com.epam.service.SolutionService;
 import com.epam.service.TaskService;
-import com.sun.deploy.net.MessageHeader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,25 +24,31 @@ public class ShowSolutionsPage implements Command {
         SolutionService solutionService = new SolutionService();
         CourseService courseService = new CourseService();
         HttpSession session = request.getSession();
+
         User user = (User) session.getAttribute("user");
         Long courseId = Long.valueOf(request.getParameter("courseId"));
-        Course course = courseService.getCourseById(courseId);
 
+        Course course = courseService.getCourseById(courseId);
         Long userId = user.getId();
 
-        request.setAttribute("course", course);
+        boolean isEnrolled = courseService.isUserEnrolled(userId,courseId);
+        if(isEnrolled) {
 
-        Boolean isEnrolled = courseService.isUserEnrolled(userId, courseId);
-        request.setAttribute("isEnrolled", isEnrolled);
+            request.setAttribute("course", course);
 
-        Integer totalItems = solutionService.countSolutionsByCourseId(courseId);
-        String pageIndexString = request.getParameter("pageIndex");
-        Integer pageIndex = pageIndexString != null ? Integer.parseInt(pageIndexString) : 1;
-        List<Solution> allByPage = solutionService.getAllByPage(pageIndex);
-        request.setAttribute("totalItems", totalItems);
-        List<SolutionTaskDto> dtoList = getDtoList(allByPage);
-        request.setAttribute("solutionTaskDtoList", dtoList);
-        return CommandResult.forward(Pages.SOLUTIONS_PAGE);
+            request.setAttribute("isEnrolled", isEnrolled);
+
+            Integer totalItems = solutionService.countSolutionsByCourseId(courseId);
+            String pageIndexString = request.getParameter("pageIndex");
+            Integer pageIndex = pageIndexString != null ? Integer.parseInt(pageIndexString) : 1;
+            List<Solution> allByPage = solutionService.getAllByPage(pageIndex);
+            request.setAttribute("totalItems", totalItems);
+            List<SolutionTaskDto> dtoList = getDtoList(allByPage);
+            request.setAttribute("solutionTaskDtoList", dtoList);
+            return CommandResult.forward(Destination.SOLUTIONS_PAGE.getPageAddress());
+        }else{
+            throw new ServiceException("Invalid access");
+        }
     }
 
     private List<SolutionTaskDto> getDtoList(List<Solution> allByPage) throws ServiceException {

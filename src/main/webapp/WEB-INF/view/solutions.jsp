@@ -5,9 +5,7 @@
 <%@ page import="com.epam.entities.UserRole" %>
 <%@ page import="com.epam.entities.SolutionStatus" %>
 <c:set var="pageIndex" value="${not empty param.pageIndex?param.pageIndex : 1}"/>
-<c:set var="lang"
-       value="${param.lang!= null?param.lang : sessionScope.lang != null? sessionScope.lang : pageContext.request.locale}"/>
-<fmt:setLocale value="${lang}" scope="session"/>
+<fmt:setLocale value="${not empty sessionScope.locale? sessionScope.locale:'en_US'}" scope="session"/>
 <fmt:setBundle basename="language" scope="session"/>
 <html>
 <head>
@@ -15,27 +13,11 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Main</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="course.css" type="text/css"/>
+    <link rel="stylesheet" href="css/course.css" type="text/css"/>
 </head>
 <body>
-<nav>
-    <div>
-        <a href="${pageContext.request.contextPath}/controller?command=mainPage">
-            <fmt:message key="label.home"/>
-        </a>
-        <a href="${pageContext.request.contextPath}/controller?command=myCourses">
-            <fmt:message key="label.my_courses"/>
-        </a>
-    </div>
-    <div>
-        <a href="${pageContext.request.contextPath}/controller?command=setLocale&lang=ru">ru</a>
-        <a href="${pageContext.request.contextPath}/controller?command=setLocale&lang=eng">eng</a>
-        <a href="${pageContext.request.contextPath}/controller?command=setLocale&lang=de">de</a>
-        <a onclick="openModal('account-modal')" style="cursor: pointer"><fmt:message key="label.account"/></a>
-        <a href="${pageContext.request.contextPath}/controller?command=logout"><fmt:message key="label.logout"/></a>
-    </div>
-</nav>
-<div class="modal-pane" id="account-modal">
+<jsp:include page="header.jsp"/>
+<div class="modal-pane" id="account-modal" style="display: none">
     <div class="modal">
         <div class="modal-block">
             <div><fmt:message key="label.name"/> </div>
@@ -103,6 +85,45 @@
                 <c:if test="${solutionTaskDtoList.isEmpty()}">
                     <div class="task-name"> <fmt:message key="label.no_solution"/></div>
                 </c:if>
+                <div class="wrapper">
+                    <div class="table">
+                        <div class="row header blue">
+                            <div class="cell"><fmt:message key="label.task_name"/></div>
+                            <div class="cell"><fmt:message key="label.description"/></div>
+                            <div class="cell"></div>
+                        </div>
+                        <c:if test="${solutionTaskDtoList.isEmpty()}">
+                            <div class="task-name"><fmt:message key="label.no_task"/></div>
+                        </c:if>
+
+                        <c:forEach var="task" items="${solutionTaskDtoList}">
+                            <div class="row">
+                                <div class="cell">${task.taskName}</div>
+                                <div class="cell">${task.taskDescription}</div>
+                                <c:if test="${user.role == UserRole.STUDENT}">
+                                    <a onclick=
+                                    <c:choose>
+                                        <c:when test="${task.solutionId==null}">
+                                            "openModal('send_solution')" class="tab-button"><fmt:message
+                                                key="label.send_solution"/></a>
+                                        </c:when>
+                                        <c:otherwise>
+
+                                            "openModal('${task.solutionId}')" class="tab-button graded" ><fmt:message
+                                                key="label.check_solution"/></a>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                </c:if>
+                                <c:if test="${user.role == UserRole.ADMIN || user.role == UserRole.TEACHER}">
+                                    <a class="tab-button" style="background: #7d2626; text-decoration: none"
+                                       href="${pageContext.request.contextPath}/controller?command=deleteTask&taskId=${task.taskId}&courseId=${course.id}&pageIndex=${pageIndex}"><fmt:message
+                                            key="label.delete_task"/></a>
+                                </c:if>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
                 <c:forEach var="solution" items="${solutionTaskDtoList}">
                     <div class="list-item">
                         <div class="task-name">${solution.taskName}</div>

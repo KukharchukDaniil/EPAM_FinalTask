@@ -1,10 +1,12 @@
 package com.epam.service;
 
-import com.epam.dao.*;
-import com.epam.entities.Course;
 import com.epam.entities.Entity;
 import com.epam.exceptions.DaoException;
 import com.epam.exceptions.ServiceException;
+import com.epam.dao.AbstractDao;
+import com.epam.dao.DaoHelper;
+import com.epam.dao.DaoHelperFactory;
+import com.epam.dao.DaoType;
 
 import java.util.List;
 
@@ -29,6 +31,15 @@ public abstract class AbstractService<T extends Entity>{
             throw new ServiceException(e.getMessage(), e);
         }
     }
-
+    public void deleteById(Long id) throws ServiceException {
+        try(DaoHelper daoHelper = getDaoHelper()) {
+            daoHelper.startTransaction();
+            AbstractDao<T> dao = daoHelper.create(getDaoType());
+            dao.removeById(id);
+            daoHelper.endTransaction();
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
     protected abstract DaoType getDaoType();
 }

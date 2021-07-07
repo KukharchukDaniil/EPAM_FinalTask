@@ -20,6 +20,6 @@ public class DeleteTaskCommand implements Command{
         if(taskOptional.isPresent()){
             taskService.deleteTaskById(taskId);
         }
-        return CommandResult.redirect(CommandFactory.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
+        return CommandResult.redirect(CommandTypes.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
     }
 }

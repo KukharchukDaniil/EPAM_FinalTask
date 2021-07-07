@@ -5,7 +5,6 @@ import com.epam.exceptions.DaoException;
 import com.epam.mapper.RowMapper;
 
 import java.sql.Connection;
-import java.util.List;
 import java.util.Optional;
 
 public class SolutionDao extends AbstractDao<Solution> {

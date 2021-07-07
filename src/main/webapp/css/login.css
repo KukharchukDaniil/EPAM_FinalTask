@@ -1,0 +1,136 @@
+
+:root{
+    --bgr-primary: linear-gradient(#ff8f8f, #7a4242);
+    --clr-container-primary: #333;
+    --clr-container-secondary: #5056a8;
+    --clr-text-primary: #FFF;
+    --clr-text-secondary: rgb(139, 139, 139);
+}
+*, * >* {
+    margin: 0;
+    line-height: 1.7em;
+    font-family: Helvetica, sans-serif;
+    box-sizing: border-box;
+    outline: none;
+}
+input, button, .header, .locale{
+    width: 100%;
+}
+body {
+    background: var(--bgr-primary);
+}
+
+
+.header {
+    text-align: center;
+    display: flex;
+    gap:13px
+}
+
+.header h1 {
+    font-size: 25px;
+    font-weight: 400;
+    color: var(--clr-text-primary);
+    cursor: default;
+    background-color: var(--clr-container-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 70%;
+
+}
+
+.container {
+    margin: 5% auto 15% auto;
+    width: min(70%, 18rem);
+    color: var(--clr-text-secondary);
+    background-color: var(--clr-container-primary);
+    padding: 9px;
+}
+.container, form{
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+input[type=text], input[type=password] {
+    padding: 9px;
+    border: 5px solid var(--clr-container-secondary);
+    background-color: var(--clr-container-primary);
+    outline: none;
+    color: rgb(224, 224, 224);
+}
+
+
+
+input:focus {
+    border-color: rgba(93, 100, 191, 0.92);
+    background-color: rgb(61, 61, 61);
+}
+
+button {
+    background-color: #5056a8eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+button:hover {
+    background-color: rgba(89, 96, 194, 0.92);
+    border-color: #5960C2EB;
+}
+
+.error_message {
+    color: #e64848;
+    font-size: 0.8rem;
+}
+
+.registration-link {
+    color: #acbaa8;
+    font-size: 0.8rem;
+}
+
+.locale {
+
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    background-color:var(--clr-container-secondary);
+    color:var(--clr-text-primary);
+    float: right;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    flex: 1 1 30%;
+}
+
+.locale-content{
+    display:none;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    height: fit-content;
+    top: 0;
+    padding: 3px;
+    background-color: var(--clr-container-secondary);
+}
+
+.locale a {
+    padding: 6px;
+    text-decoration: none;
+    display: block;
+    color: white;
+    background: #333;
+    border: 3px solid #333;
+    margin: 2px;
+    line-height: 1rem;
+}
+.locale a:hover{
+    background-color: #444444eb;
+}
+.locale:hover .locale-content{
+    display: flex;
+    width: 100px;
+}

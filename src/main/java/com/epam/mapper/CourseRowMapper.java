@@ -2,8 +2,6 @@ package com.epam.mapper;
 
 import com.epam.entities.Course;
 import com.epam.entities.CourseCategory;
-import com.epam.entities.User;
-import com.epam.entities.UserRole;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,11 +1,12 @@
 package com.epam.dao;
 
 import com.epam.entities.User;
+import com.epam.entities.UserRole;
 import com.epam.exceptions.DaoException;
-import com.epam.mapper.RowMapper;
 import com.epam.mapper.UserRowMapper;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Optional;
 
 public class UserDao extends AbstractDao<User> {
@@ -15,6 +16,10 @@ public class UserDao extends AbstractDao<User> {
     private static final String UPDATE_USER_NAME_AND_PASSWORD = "UPDATE USERS SET NAME = ?, PASSWORD = ?, WHERE ID = ? ";
     private static final String TABLE_NAME = "USERS";
     private static final String FIND_USER_BY_USERNAME = "SELECT * FROM USERS WHERE USERNAME = ?";
+    private static final String FIND_USES_BY_ROLE_AND_PAGE = "SELECT * FROM courses_db.users WHERE role = ? LIMIT ?,5";
+    private static final String COUNT_USERS_BY_ROLE = "SELECT COUNT(*) FROM courses_db.users WHERE role = '%s'";
+    private static final String COUNT_USERS_BY_USERNAME = "SELECT COUNT(*) FROM courses_db.users WHERE username = '%s'";
+    private static final Integer ITEMS_PER_PAGE = 10;
 
     public UserDao(Connection connection, UserRowMapper userRowMapper) {
         super(connection, userRowMapper);
@@ -23,12 +28,15 @@ public class UserDao extends AbstractDao<User> {
     public Optional<User> findUserByLoginAndPassword(final String login, final String password) throws DaoException {
         return executeForSingleResult(FIND_BY_LOGIN_AND_PASSWORD, rowMapper, login, password);
     }
+
     public void enrollOnCourse(long courseId, long userId) throws DaoException {
-        executeUpdate(ENROLL_USER,courseId,userId);
+        executeUpdate(ENROLL_USER, courseId, userId);
     }
+
     public Optional<User> findUserByUsername(String username) throws DaoException {
-        return executeForSingleResult(FIND_USER_BY_USERNAME,rowMapper, username);
+        return executeForSingleResult(FIND_USER_BY_USERNAME, rowMapper, username);
     }
+
     @Override
     protected String getTableName() {
         return TABLE_NAME;
@@ -47,7 +55,21 @@ public class UserDao extends AbstractDao<User> {
 
     @Override
     public void create(User entity) throws DaoException {
-        System.out.println(entity.getName() + entity.getPassword() + entity.getUsername());
-        executeUpdate(INSERT_USER,entity.getName(),entity.getUsername(),entity.getPassword());
+        executeUpdate(INSERT_USER, entity.getName(), entity.getUsername(), entity.getPassword());
+    }
+
+    public List<User> findUsersByRoleAndPage(UserRole role, Integer pageIndex) throws DaoException {
+        return executeQuery(FIND_USES_BY_ROLE_AND_PAGE, rowMapper,
+                role.toString(), (pageIndex - 1) * 5);
+    }
+
+    public Integer countUsersByRole(UserRole role) throws DaoException {
+        String query = String.format(COUNT_USERS_BY_ROLE, role.toString().toLowerCase());
+        return countQuery(query);
+    }
+
+    public Integer countUsersByUsername(String username) throws DaoException {
+        String query = String.format(COUNT_USERS_BY_ROLE, username.toLowerCase());
+        return countQuery(query);
     }
 }

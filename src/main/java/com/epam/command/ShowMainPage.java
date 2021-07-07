@@ -6,8 +6,6 @@ import com.epam.service.CourseService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 public class ShowMainPage implements Command{
@@ -16,11 +14,11 @@ public class ShowMainPage implements Command{
         CourseService courseService = new CourseService();
         Integer totalItems = courseService.countAllCourses();
         String pageIndexString = request.getParameter("pageIndex");
-        Integer pageIndex = pageIndexString!=null? Integer.valueOf(pageIndexString):1;
+        Integer pageIndex = pageIndexString!=null? Integer.parseInt(pageIndexString):1;
         List<Course> allByPage = courseService.getAllByPage(pageIndex);
         request.setAttribute("coursesList", allByPage);
         request.setAttribute("totalItems", totalItems);
 
-        return CommandResult.forward(Pages.MAIN_PAGE);
+        return CommandResult.forward(Destination.MAIN_PAGE.getPageAddress());
     }
 }

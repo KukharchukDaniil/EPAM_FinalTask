@@ -23,6 +23,6 @@ public class GradeCommand implements Command {
                 solutionId, taskId, userId, SolutionStatus.GRADED, solutionValue, solutionMark, solutionComment
         );
         solutionService.commitSolution(solution);
-        return CommandResult.redirect(CommandFactory.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
+        return CommandResult.redirect(CommandTypes.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
     }
 }

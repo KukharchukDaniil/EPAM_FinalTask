@@ -1,0 +1,19 @@
+body {}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    margin: 10% 0;
+}
+
+p {
+    color: red;
+    display: flex;
+    font-size: 1.3rem;
+    border: red 2px solid;
+    padding: 0.5rem;
+}

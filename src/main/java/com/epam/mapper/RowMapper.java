@@ -1,7 +1,5 @@
 package com.epam.mapper;
 
-import com.epam.entities.Entity;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

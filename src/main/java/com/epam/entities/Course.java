@@ -3,7 +3,7 @@ package com.epam.entities;
 import java.util.Objects;
 
 public class Course implements Entity{
-    private final long id;
+    private  Long id = null;
     private final String courseName;
     private final String description;
     private final CourseCategory category;
@@ -18,6 +18,12 @@ public class Course implements Entity{
         this.courseName = courseName;
         this.description = description;
         this.category = category;
+    }
+
+    public Course(String courseName, String courseDescription, CourseCategory courseCategory) {
+        this.courseName = courseName;
+        this.description = courseDescription;
+        this.category = courseCategory;
     }
 
     public String getCourseName() {

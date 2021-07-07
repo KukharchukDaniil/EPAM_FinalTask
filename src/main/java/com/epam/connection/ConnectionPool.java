@@ -2,8 +2,6 @@ package com.epam.connection;
 
 import com.epam.exceptions.DaoException;
 
-import java.util.*;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -44,8 +42,8 @@ public class ConnectionPool {
     }
 
     private void initializeConnections(int size) throws SQLException, ClassNotFoundException {
+        ConnectionFactory factory = new ConnectionFactory();
         for (int i = 0; i < size; i++) {
-            ConnectionFactory factory = new ConnectionFactory();
             ProxyConnection proxyConnection = new ProxyConnection(factory.create(), this);
             availableConnections.add(proxyConnection);
         }
@@ -87,8 +85,8 @@ public class ConnectionPool {
             for (ProxyConnection proxyConnection : connectionsInUse) {
                 proxyConnection.getConnection().close();
             }
-        } catch (SQLException exception) {
-            throw new DaoException(exception.getMessage(), exception);
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage(), e);
         }
     }
 }

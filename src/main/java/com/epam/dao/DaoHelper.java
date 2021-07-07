@@ -7,6 +7,8 @@ import com.epam.mapper.SolutionRowMapper;
 import com.epam.mapper.TaskRowMapper;
 import com.epam.mapper.UserRowMapper;
 
+import java.sql.SQLException;
+
 public class DaoHelper implements AutoCloseable{
     private ProxyConnection connection;
 
@@ -30,7 +32,27 @@ public class DaoHelper implements AutoCloseable{
     }
 
     @Override
-    public void close() throws Exception {
-        connection.close();
+    public void close() throws DaoException {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage(),e);
+        }
+    }
+    public void startTransaction() throws DaoException {
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+    }
+
+    public void endTransaction() throws DaoException {
+        try {
+            connection.commit();
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 }

@@ -1,12 +1,11 @@
 package com.epam.command;
 
 import com.epam.entities.User;
-import com.epam.entities.UserRole;
 import com.epam.exceptions.ServiceException;
-import com.epam.service.UserService;
-import com.epam.validator.NameValidator;
 import com.epam.validator.PasswordValidator;
 import com.epam.validator.UsernameValidator;
+import com.epam.service.UserService;
+import com.epam.validator.NameValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +18,9 @@ public class SignUpCommand implements Command {
         String name = request.getParameter("name");
         UserService userService = new UserService();
 
+        Boolean isUsernameUnique = userService.isUsernameUnique(username);
+
+
         UsernameValidator usernameValidator = new UsernameValidator();
         NameValidator nameValidator = new NameValidator();
         PasswordValidator passwordValidator = new PasswordValidator();
@@ -27,9 +29,12 @@ public class SignUpCommand implements Command {
         boolean isPasswordValid = passwordValidator.validate(password);
         boolean isNameValid = nameValidator.validate(name);
 
-        if (!isLoginValid || !isPasswordValid || !isNameValid) {
+        if (!isLoginValid || !isPasswordValid || !isNameValid || !isUsernameUnique) {
             if (!isLoginValid) {
                 request.setAttribute("usernameError", true);
+            }
+            if(!isUsernameUnique){
+                request.setAttribute("usernameIsTaken",true);
             }
             if (!isNameValid) {
                 request.setAttribute("nameError", true);
@@ -37,17 +42,17 @@ public class SignUpCommand implements Command {
             if (!isPasswordValid) {
                 request.setAttribute("passwordError", true);
             }
-            return CommandResult.forward(Pages.REGISTRATION_PAGE);
+            return CommandResult.forward(Destination.REGISTRATION_PAGE.getPageAddress());
         }
 
 
         if (userService.doesUserExist(username)) {
             request.setAttribute("usernameIsTaken", true);
-            return CommandResult.forward(Pages.REGISTRATION_PAGE);
+            return CommandResult.forward(Destination.REGISTRATION_PAGE.getPageAddress());
         } else {
             User user = new User(name, username, password);
             userService.signUpUser(user);
         }
-        return CommandResult.redirect(CommandFactory.SHOW_LOGIN_PAGE);
+        return CommandResult.redirect(CommandTypes.SHOW_LOGIN_PAGE);
     }
 }

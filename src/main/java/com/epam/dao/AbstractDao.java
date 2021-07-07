@@ -2,7 +2,6 @@ package com.epam.dao;
 
 import com.epam.entities.Entity;
 import com.epam.exceptions.DaoException;
-import com.epam.mapper.IntegerMapper;
 import com.epam.mapper.RowMapper;
 
 import java.sql.PreparedStatement;
@@ -11,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
-import java.util.Objects;
 import java.util.Optional;
 
 public abstract class AbstractDao<T extends Entity> implements Dao<T> {
@@ -90,6 +88,10 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
             throw new DaoException(exception.getMessage(), exception);
         }
     }
+    public void removeById(Long id) throws DaoException {
+        String query = String.format(REMOVE_BY_ID,getTableName());
+        executeUpdate(query,id);
+    }
 
     @Override
     public Optional<T> getById(long id) throws DaoException {
@@ -117,9 +119,7 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         }
     }
 
-    @Override
-    public void removeById(long id) throws DaoException {
-    }
+
 
 }
 

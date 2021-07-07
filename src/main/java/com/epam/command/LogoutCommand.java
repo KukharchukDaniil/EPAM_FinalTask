@@ -10,7 +10,7 @@ public class LogoutCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        session.setAttribute("user",null);
-        return CommandResult.redirect(CommandFactory.SHOW_LOGIN_PAGE);
+        session.invalidate();
+        return CommandResult.redirect(CommandTypes.SHOW_LOGIN_PAGE);
     }
 }

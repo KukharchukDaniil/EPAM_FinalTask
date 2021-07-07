@@ -11,7 +11,7 @@ public class SetLocaleCommand implements Command{
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
         String lang = request.getParameter("lang");
-        session.setAttribute("lang",lang);
-        return CommandResult.redirect(CommandFactory.SHOW_MAIN_PAGE);
+        session.setAttribute("locale",lang);
+        return CommandResult.redirect(CommandTypes.SHOW_MAIN_PAGE);
     }
 }

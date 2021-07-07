@@ -2,9 +2,7 @@ package com.epam.service;
 
 import com.epam.dao.DaoHelper;
 import com.epam.dao.DaoType;
-import com.epam.dao.SolutionDao;
 import com.epam.dao.TaskDao;
-import com.epam.entities.Solution;
 import com.epam.entities.Task;
 import com.epam.exceptions.ServiceException;
 
@@ -28,8 +26,10 @@ public class TaskService extends AbstractService<Task> {
 
     public void deleteTaskById(Long taskId) throws ServiceException {
         try (DaoHelper helper = getDaoHelper()) {
+            helper.startTransaction();
             TaskDao dao = (TaskDao) helper.create(getDaoType());
-            dao.deleteById(taskId);
+            dao.removeById(taskId);
+            helper.endTransaction();
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), e);
         }

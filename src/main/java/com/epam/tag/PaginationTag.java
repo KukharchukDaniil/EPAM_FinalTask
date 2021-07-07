@@ -7,17 +7,18 @@ import java.io.Writer;
 
 public class PaginationTag extends SimpleTagSupport {
 
-    private int numberOfPages;
     private static final int LINKS_PER_PAGE = 10;
     private static final int ITEMS_PER_PAGE = 5;
     private static final int SHIFT = 5;
     private static final String LINK_CLASS = "pagination-link";
+    private int numberOfPages;
     private int currentPage;
     private int totalItems;
     private String uri;
+    private String onClick;
 
     @Override
-    public void doTag() throws JspException, IOException {
+    public void doTag() {
         calculateNumberOfPages();
         if (numberOfPages <= 1) {
             return;
@@ -55,9 +56,10 @@ public class PaginationTag extends SimpleTagSupport {
     }
 
     private String buildPaginationItem(int page, String linkName) {
-        String item = new String("<a class=\"%s\" href=\"%s&pageIndex=%s\">%s</a>");
+        String item = "<a class=\"%s\" href=\"%s&pageIndex=%s\" onclick=\"%s\">%s</a>";
 
-        String format = String.format(item, page == currentPage? LINK_CLASS+" active" : LINK_CLASS,  uri, page, linkName);
+        String format = String.format(item, page == currentPage? LINK_CLASS+" active" : LINK_CLASS,  uri,
+                                                page,onClick, linkName);
         return format;
     }
 
@@ -75,5 +77,9 @@ public class PaginationTag extends SimpleTagSupport {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public void setOnClick(String onClick) {
+        this.onClick = onClick;
     }
 }

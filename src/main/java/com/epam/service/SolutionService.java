@@ -4,10 +4,8 @@ import com.epam.dao.DaoHelper;
 import com.epam.dao.DaoType;
 import com.epam.dao.SolutionDao;
 import com.epam.entities.Solution;
-import com.epam.exceptions.DaoException;
 import com.epam.exceptions.ServiceException;
 
-import java.util.List;
 import java.util.Optional;
 
 public class SolutionService extends AbstractService<Solution> {
@@ -23,7 +21,7 @@ public class SolutionService extends AbstractService<Solution> {
 
     public void commitSolution(Solution solution) throws ServiceException {
         try (DaoHelper helper = getDaoHelper()) {
-
+            helper.startTransaction();
             SolutionDao dao = (SolutionDao) helper.create(getDaoType());
             Solution bufferSolution = solution;
             Optional<Solution> solutionFromDatabase = dao.getSolutionByUserIdAndTaskId(solution.getTaskId(), solution.getUserId());
@@ -31,6 +29,7 @@ public class SolutionService extends AbstractService<Solution> {
                 bufferSolution.setId(solutionFromDatabase.get().getId());
             }
             dao.save(solution);
+            helper.endTransaction();
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), e);
         }

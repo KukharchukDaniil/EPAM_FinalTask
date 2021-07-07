@@ -22,10 +22,10 @@ public class ShowMyCoursesPage implements Command {
         String pageIndexString = request.getParameter("pageIndex");
 
 
-        Integer pageIndex = pageIndexString!=null? Integer.valueOf(pageIndexString):1;
+        Integer pageIndex = pageIndexString!=null? Integer.parseInt(pageIndexString):1;
         List<Course> myCoursesByPage = courseService.getMyCoursesByPage(user.getId(), pageIndex);
         request.setAttribute("coursesList", myCoursesByPage);
         request.setAttribute("totalItems", totalItems);
-        return CommandResult.forward(Pages.MY_COURSES_PAGE);
+        return CommandResult.forward(Destination.MY_COURSES_PAGE.getPageAddress());
     }
 }

@@ -16,6 +16,6 @@ public class AddTaskCommand implements Command{
         Task task = new Task(null, courseId, taskName,taskDescription);
         TaskService taskService = new TaskService();
         taskService.addTask(task);
-        return CommandResult.redirect(CommandFactory.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
+        return CommandResult.redirect(CommandTypes.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
     }
 }

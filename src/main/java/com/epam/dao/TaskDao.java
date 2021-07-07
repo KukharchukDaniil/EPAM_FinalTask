@@ -1,6 +1,5 @@
 package com.epam.dao;
 
-import com.epam.entities.Course;
 import com.epam.entities.Task;
 import com.epam.exceptions.DaoException;
 import com.epam.mapper.RowMapper;

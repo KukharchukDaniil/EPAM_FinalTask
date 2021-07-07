@@ -19,10 +19,9 @@ public class SendSolutionCommand implements Command {
         Long taskId = Long.parseLong(request.getParameter("taskId"));
         Long userId = Long.parseLong(request.getParameter("userId"));
         String courseId = request.getParameter("courseId");
-        System.out.println(courseId);
         String solutionValue = request.getParameter("solutionValue");
         Solution solution = new Solution(null,taskId,userId, SolutionStatus.SENT,solutionValue,0,"");
         service.commitSolution(solution);
-        return CommandResult.redirect(CommandFactory.SHOW_COURSE,"&courseId=",courseId);
+        return CommandResult.redirect(CommandTypes.SHOW_COURSE,"&courseId=",courseId);
     }
 }

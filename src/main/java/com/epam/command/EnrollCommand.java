@@ -3,6 +3,7 @@ package com.epam.command;
 import com.epam.entities.User;
 import com.epam.exceptions.ServiceException;
 import com.epam.service.UserService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,6 @@ public class EnrollCommand implements Command{
         User user = (User) session.getAttribute(USER);
         Integer courseId = Integer.valueOf(request.getParameter("courseId"));
         userService.enrollOnCourse(courseId,user.getId());
-        return CommandResult.redirect(CommandFactory.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
+        return CommandResult.redirect(CommandTypes.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
     }
 }
