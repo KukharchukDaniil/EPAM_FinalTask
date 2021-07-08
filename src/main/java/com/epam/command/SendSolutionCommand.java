@@ -19,7 +19,7 @@ public class SendSolutionCommand implements Command {
         Long taskId = Long.parseLong(request.getParameter("taskId"));
         Long userId = Long.parseLong(request.getParameter("userId"));
         String courseId = request.getParameter("courseId");
-        String solutionValue = request.getParameter("solutionValue");
+        String solutionValue = InjectionProtector.getSafeAttribute(request,"solutionValue");
         Solution solution = new Solution(null,taskId,userId, SolutionStatus.SENT,solutionValue,0,"");
         service.commitSolution(solution);
         return CommandResult.redirect(CommandTypes.SHOW_COURSE,"&courseId=",courseId);

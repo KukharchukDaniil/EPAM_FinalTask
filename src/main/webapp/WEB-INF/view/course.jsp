@@ -36,7 +36,7 @@
         <div class="modal-pane" id="send_solution">
             <div class="modal">
                 <form action="${pageContext.request.contextPath}/controller" method="post" class="solution-form">
-                    <input type="hidden" name="command" value="sendSolution"/>
+                    <input type="hidden"  name="command" value="sendSolution"/>
                     <input type="hidden" name="userId" value="${user.id}"/>
                     <input type="hidden" name="courseId" value="${course.id}"/>
                     <select name="taskId">
@@ -97,7 +97,7 @@
                     <input type="hidden" name="command" value="addTask"/>
                     <input type="hidden" name="courseId" value="${course.id}"/>
                     <input type="text" name="taskName" required placeholder="<fmt:message key="label.task_name"/>.."/>
-                    <textarea type="text" name="taskDescription" required
+                    <textarea type="text" pattern="[^<>/]" name="taskDescription" required
                               placeholder="<fmt:message key="label.description"/>"></textarea>
                     <button type="submit" value="Submit"><fmt:message key="label.submit"/></button>
                 </form>

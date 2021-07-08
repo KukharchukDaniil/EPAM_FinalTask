@@ -54,7 +54,7 @@ public class ShowCoursePage implements Command {
         List<SolutionTaskDto> dtoList = mapDtoList(tasksByCourseId,userId);
 
         request.setAttribute("solutionTaskDtoList", dtoList);
-        return CommandResult.forward(Destination.COURSE_PAGE.getPageAddress());
+        return CommandResult.forward(Destination.COURSE_PAGE);
     }
 
     private List<SolutionTaskDto> mapDtoList(List<Task> tasksByCourseId, Long userId) throws ServiceException {

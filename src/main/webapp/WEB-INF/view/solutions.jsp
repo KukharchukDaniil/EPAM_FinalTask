@@ -51,6 +51,7 @@
                         <div class="modal-block">
                             <div><fmt:message key="label.solution"/>:</div>
                                 ${dto.solutionValue}</div>
+
                         <input type="hidden" value="gradeSolution" name="command"/>
                         <input type="hidden" value="${dto.taskId}" name="taskId"/>
                         <input type="hidden" value="${dto.solutionId}" name="solutionId"/>

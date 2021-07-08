@@ -45,7 +45,8 @@ public class RoleFilter implements Filter {
                     }
                     break;
                 case TEACHER:
-                    if (CommandTypes.DELETE_TASK.equals(command) ||
+                    if (CommandTypes.ADD_TASK.equals(command) ||
+                            CommandTypes.DELETE_TASK.equals(command) ||
                             CommandTypes.GRADE_SOLUTION.equals(command) ||
                             CommandTypes.LOGIN.equals(command) ||
                             CommandTypes.LOGIN_ERROR.equals(command) ||

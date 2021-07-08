@@ -13,6 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ManageCourseCommand implements Command {
+    public static final String COURSE_NAME = "courseName";
+    public static final String COURSE_DESCRIPTION = "courseDescription";
+    public static final String COURSE_CATEGORY = "courseCategory";
+    public static final String COURSE_ID = "courseId";
+    public static final String TEACHERS_LIST_TO_ENROLL = "teachersListToEnroll";
+    public static final String TEACHERS_LIST_TO_REMOVE = "teachersListToRemove";
+    public static final String REGEX = ",";
     private CourseService courseService;
     private UserService userService;
 
@@ -23,19 +30,19 @@ public class ManageCourseCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String courseName = request.getParameter("courseName");
-        String courseDescription = request.getParameter("courseDescription");
-        String courseCategory = request.getParameter("courseCategory");
-        Long courseId = Long.parseLong(request.getParameter("courseId"));
+        String courseName = InjectionProtector.getSafeAttribute(request, COURSE_NAME);
+        String courseDescription = InjectionProtector.getSafeAttribute(request,COURSE_DESCRIPTION);
+        String courseCategory = request.getParameter(COURSE_CATEGORY);
+        Long courseId = Long.parseLong(request.getParameter(COURSE_ID));
         Course course = new Course(courseId, courseName,
-                courseDescription, CourseCategory.valueOf(courseCategory), null);
+                courseDescription, CourseCategory.valueOf(courseCategory));
         courseService.saveCourse(course);
-        String teachersListToEnroll = request.getParameter("teachersListToEnroll");
-        String teachersListToRemove = request.getParameter("teachersListToRemove");
+        String teachersListToEnroll = request.getParameter(TEACHERS_LIST_TO_ENROLL);
+        String teachersListToRemove = request.getParameter(TEACHERS_LIST_TO_REMOVE);
         System.out.println(teachersListToRemove);
         if (!teachersListToEnroll.isEmpty()) {
 
-            List<Long> teachersList = Arrays.stream(teachersListToEnroll.split(",")).filter(s -> {
+            List<Long> teachersList = Arrays.stream(teachersListToEnroll.split(REGEX)).filter(s -> {
                 return !s.isEmpty();
             }).map(Long::parseLong).collect(Collectors.toList());
             for (Long teacherId : teachersList) {
@@ -45,7 +52,7 @@ public class ManageCourseCommand implements Command {
             }
         }
         if (!teachersListToRemove.isEmpty()) {
-            List<Long> teachersList = Arrays.stream(teachersListToRemove.split(",")).filter(s -> {
+            List<Long> teachersList = Arrays.stream(teachersListToRemove.split(REGEX)).filter(s -> {
                 return !s.isEmpty();
             }).map(Long::parseLong).collect(Collectors.toList());
             for (Long teacherId : teachersList) {

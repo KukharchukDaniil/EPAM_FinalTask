@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 public class SignUpCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
+        String username =InjectionProtector.getSafeAttribute(request,"username");
+        String password = InjectionProtector.getSafeAttribute(request,"password");
+        String name = InjectionProtector.getSafeAttribute(request,"name");
         UserService userService = new UserService();
 
         Boolean isUsernameUnique = userService.isUsernameUnique(username);
@@ -42,13 +42,13 @@ public class SignUpCommand implements Command {
             if (!isPasswordValid) {
                 request.setAttribute("passwordError", true);
             }
-            return CommandResult.forward(Destination.REGISTRATION_PAGE.getPageAddress());
+            return CommandResult.forward(Destination.REGISTRATION_PAGE);
         }
 
 
         if (userService.doesUserExist(username)) {
             request.setAttribute("usernameIsTaken", true);
-            return CommandResult.forward(Destination.REGISTRATION_PAGE.getPageAddress());
+            return CommandResult.forward(Destination.REGISTRATION_PAGE);
         } else {
             User user = new User(name, username, password);
             userService.signUpUser(user);

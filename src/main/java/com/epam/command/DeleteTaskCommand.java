@@ -11,6 +11,8 @@ import java.util.Optional;
 public class DeleteTaskCommand implements Command{
     private static final String TASK_ID = "taskId";
     private static final String COURSE_ID = "courseId";
+    public static final String COMMAND_PARAMETE_COURSE_ID = "&courseId=";
+
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         TaskService taskService = new TaskService();
@@ -20,6 +22,6 @@ public class DeleteTaskCommand implements Command{
         if(taskOptional.isPresent()){
             taskService.deleteTaskById(taskId);
         }
-        return CommandResult.redirect(CommandTypes.SHOW_COURSE,"&courseId=", String.valueOf(courseId));
+        return CommandResult.redirect(CommandTypes.SHOW_COURSE, COMMAND_PARAMETE_COURSE_ID, String.valueOf(courseId));
     }
 }

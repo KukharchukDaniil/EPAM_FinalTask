@@ -26,6 +26,6 @@ public class ShowMyCoursesPage implements Command {
         List<Course> myCoursesByPage = courseService.getMyCoursesByPage(user.getId(), pageIndex);
         request.setAttribute("coursesList", myCoursesByPage);
         request.setAttribute("totalItems", totalItems);
-        return CommandResult.forward(Destination.MY_COURSES_PAGE.getPageAddress());
+        return CommandResult.forward(Destination.MY_COURSES_PAGE);
     }
 }

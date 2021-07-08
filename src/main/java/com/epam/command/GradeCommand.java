@@ -14,8 +14,8 @@ public class GradeCommand implements Command {
         SolutionService solutionService = new SolutionService();
         Long solutionId = Long.valueOf(request.getParameter("solutionId"));
         Integer solutionMark = Integer.valueOf(request.getParameter("solutionMark"));
-        String solutionValue = request.getParameter("solutionValue");
-        String solutionComment = request.getParameter("solutionComment");
+        String solutionValue = InjectionProtector.getSafeAttribute(request,"solutionValue");
+        String solutionComment = InjectionProtector.getSafeAttribute(request,"solutionComment");
         Long taskId = Long.valueOf(request.getParameter("taskId"));
         Long userId = Long.valueOf(request.getParameter("userId"));
         Long courseId = Long.valueOf(request.getParameter("courseId"));

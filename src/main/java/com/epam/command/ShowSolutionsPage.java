@@ -45,7 +45,7 @@ public class ShowSolutionsPage implements Command {
             request.setAttribute("totalItems", totalItems);
             List<SolutionTaskDto> dtoList = getDtoList(allByPage);
             request.setAttribute("solutionTaskDtoList", dtoList);
-            return CommandResult.forward(Destination.SOLUTIONS_PAGE.getPageAddress());
+            return CommandResult.forward(Destination.SOLUTIONS_PAGE);
         }else{
             throw new ServiceException("Invalid access");
         }

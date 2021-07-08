@@ -29,8 +29,8 @@
     </div>
     <form action="${pageContext.request.contextPath}/controller" method="post">
         <input type="hidden" name="command" value="login"/>
-        <input type="text" name="login" required placeholder="<fmt:message key="label.login_placeholder"/>"/>
-        <input type="password" name="password" required placeholder="<fmt:message key="label.password_placeholder"/>"/>
+        <input type="text" name="login" pattern="^(?=.*[a-z])(?=.*[\d]*)(?=.*[_]*).{6,18}" required placeholder="<fmt:message key="label.login_placeholder"/>"/>
+        <input type="password" name="password" pattern="^(?=.*[a-z!?@#$%A-Z\d]).{6,18}$" required placeholder="<fmt:message key="label.password_placeholder"/>"/>
         <c:if test="${error==true}">
             <div class="error_message"><fmt:message key="label.auth_error"/></div>
         </c:if>
@@ -40,7 +40,9 @@
     </form>
 
 </div>
+<script>
 
+</script>
 
 </body>
 </html>

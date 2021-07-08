@@ -24,11 +24,11 @@
                 key="label.delete_course"/></a>
         <input type="hidden" name="command" value="manageCourse">
 
-        <input type="text" name="courseName" value="${courseName}"
+        <input type="text" name="courseName" pattern="[^<>/]" value="${courseName}"
                placeholder="<fmt:message key="label.course_name_placeholder"/>">
 
 
-        <input type="text" name="courseDescription" value="${courseDescription}"
+        <input type="text" name="courseDescription" pattern="[^<>]" value="${courseDescription}"
                placeholder="<fmt:message key="label.course_description_placeholder"/>">
 
 
@@ -67,7 +67,7 @@
                         </div>
                         <div class="cell" data-title="Teacher">
 
-                            <input type="checkbox" name="selectedUser" value="${listItem.id}" id="${listItem.id}"
+                            <input type="checkbox" ch name="selectedUser" value="${listItem.id}" id="${listItem.id}"
                                    onclick="checkboxOnClick(${listItem.id})">
                         </div>
                     </div>

@@ -9,6 +9,8 @@ import static com.epam.command.CommandTypes.*;
 
 public class CommandFactory {
 
+    public static final String WRONG_COMMAND_NAME = "Wrong command name";
+
     public CommandFactory() {
     }
 
@@ -37,9 +39,9 @@ public class CommandFactory {
             case SHOW_MY_COURSES_PAGE:
                 return new ShowMyCoursesPage();
             case SHOW_LOGIN_PAGE:
-                return new ShowPageCommand(Destination.LOGIN_PAGE.getPageAddress());
+                return new ShowPageCommand(Destination.LOGIN_PAGE);
             case SHOW_REGISTRATION_PAGE:
-                return new ShowPageCommand(Destination.REGISTRATION_PAGE.getPageAddress());
+                return new ShowPageCommand(Destination.REGISTRATION_PAGE);
             case SHOW_COURSE:
                 return new ShowCoursePage(new CourseService(), new TaskService(), new SolutionService());
             case ENROLL:
@@ -59,7 +61,7 @@ public class CommandFactory {
             case SHOW_ERROR:
                 return new ShowErrorCommand();
             default:
-                throw new IllegalArgumentException("Wrong command name");
+                throw new IllegalArgumentException(WRONG_COMMAND_NAME);
         }
     }
 }

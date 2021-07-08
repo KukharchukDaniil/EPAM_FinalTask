@@ -7,7 +7,6 @@ public class Course implements Entity{
     private final String courseName;
     private final String description;
     private final CourseCategory category;
-    private String image;
 
     public static final String ID = "id";
     public static final String COURSE_NAME = "course_name";
@@ -15,19 +14,17 @@ public class Course implements Entity{
     public static final String CATEGORY = "course_category";
     public static final String COURSE_IMAGE = "course_image";
 
-    public Course(long id, String courseName, String description, CourseCategory category, String image) {
+    public Course(long id, String courseName, String description, CourseCategory category) {
         this.id = id;
         this.courseName = courseName;
         this.description = description;
         this.category = category;
-        this.image = image;
     }
 
-    public Course(String courseName, String courseDescription, CourseCategory courseCategory, String image) {
+    public Course(String courseName, String courseDescription, CourseCategory courseCategory) {
         this.courseName = courseName;
         this.description = courseDescription;
         this.category = courseCategory;
-        this.image = image;
     }
 
     public String getCourseName() {
@@ -60,11 +57,4 @@ public class Course implements Entity{
         return Objects.hash(id, courseName, description, category);
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }

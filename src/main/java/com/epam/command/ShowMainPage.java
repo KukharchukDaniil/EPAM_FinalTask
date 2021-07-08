@@ -19,6 +19,6 @@ public class ShowMainPage implements Command{
         request.setAttribute("coursesList", allByPage);
         request.setAttribute("totalItems", totalItems);
 
-        return CommandResult.forward(Destination.MAIN_PAGE.getPageAddress());
+        return CommandResult.forward(Destination.MAIN_PAGE);
     }
 }

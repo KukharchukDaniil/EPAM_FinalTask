@@ -14,8 +14,7 @@ public class CourseRowMapper implements RowMapper<Course> {
                 resultSet.getLong(Course.ID),
                 resultSet.getString(Course.COURSE_NAME),
                 resultSet.getString(Course.DESCRIPTION),
-                CourseCategory.valueOf(resultSet.getString(Course.CATEGORY).toUpperCase(Locale.ROOT)),
-                resultSet.getString(Course.COURSE_IMAGE));
+                CourseCategory.valueOf(resultSet.getString(Course.CATEGORY).toUpperCase(Locale.ROOT)));
         return course;
     }
 }
