@@ -41,7 +41,7 @@
         <c:if test="${dto.solutionStatus != SolutionStatus.GRADED}">
             <div class="modal-pane" id="${dto.solutionId}" style="display: none">
                 <div class="modal">
-                    <form action="${pageContext.request.contextPath}/controller" method="post" class="grading-form">
+                    <form action="${pageContext.request.contextPath}/controller" method="post" class="grading-form" >
                         <div class="modal-block">
                             <div>Task name:</div>
                                 ${dto.taskName}</div>
@@ -98,6 +98,7 @@
                             <div class="cell"><fmt:message key="label.description"/></div>
                             <div class="cell"></div>
                         </div>
+
                         <c:if test="${solutionTaskDtoList.isEmpty()}">
                             <div class="task-name"><fmt:message key="label.no_task"/></div>
                         </c:if>
@@ -108,15 +109,17 @@
                                 <div class="cell">${solution.solutionStatus}</div>
                                 <div class="cell">${solution.solutionMark}</div>
                                 <div class="cell">${solution.taskDescription}</div>
-                                <c:if test="${user.role == UserRole.ADMIN || user.role == UserRole.TEACHER &&
-                         solution.solutionStatus != SolutionStatus.GRADED}">
+
                                     <div class="cell">
+                                        <c:if test="${user.role == UserRole.ADMIN || user.role == UserRole.TEACHER &&
+                         solution.solutionStatus != SolutionStatus.GRADED}">
                                         <a class="tab-button" style="background: #5056a8eb; text-decoration: none"
                                            onclick="openModal('${solution.solutionId}')"><fmt:message
                                                 key="label.evaluate"/></a>
+
+                                        </c:if>
                                     </div>
 
-                                </c:if>
                             </div>
                         </c:forEach>
                     </div>

@@ -27,7 +27,7 @@
             </div>
         </div>
         <input type="hidden" name="command" value="signUp"/>
-        <input type="text" name="name" pattern="[a-zA-Z]" required placeholder="<fmt:message key="label.registration_name"/>"/>
+        <input type="text" name="name" pattern="[a-zA-Z]+" required placeholder="<fmt:message key="label.registration_name"/>"/>
         <c:if test="${nameError==true}">
             <div class="error_message">
                 <ul>
@@ -36,7 +36,7 @@
             </div>
         </c:if>
 
-        <input type="text" name="username" pattern="^(?=.*[a-z])(?=.*[\d]*)(?=.*[_]*).{6,18}" required placeholder="<fmt:message key="label.login_placeholder"/>"/>
+        <input type="text" name="username" pattern="^(?=.*[a-z])(?=.*[\d]*)(?=.*[_]*).{0,18}" required placeholder="<fmt:message key="label.login_placeholder"/>"/>
         <c:if test="${usernameIsTaken==true}">
 
             <div class="error_message"><fmt:message key="label.login_error"/></div>

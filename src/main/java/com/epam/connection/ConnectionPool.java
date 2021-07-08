@@ -1,9 +1,14 @@
 package com.epam.connection;
 
 import com.epam.exceptions.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
+import java.util.Properties;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.ReentrantLock;
@@ -11,17 +16,26 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ConnectionPool {
     private static final ReentrantLock CONNECTIONS_LOCK = new ReentrantLock();
     private static final ReentrantLock REENTRANT_LOCK = new ReentrantLock();
-    private static final Integer DEFAULT_POOL_SIZE = 10;
+    private static final Properties PROPERTIES = new Properties();
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static Integer defaultPoolSize;
     private static ConnectionPool instance;
-    private Queue<ProxyConnection> availableConnections;
-    private Queue<ProxyConnection> connectionsInUse;
-    private Semaphore connectionSemaphore = new Semaphore(DEFAULT_POOL_SIZE);
+    private final Queue<ProxyConnection> availableConnections;
+    private final Queue<ProxyConnection> connectionsInUse;
+    private final Semaphore connectionSemaphore;
+    static{
+        try{
+            PROPERTIES.load(new FileReader("D:\\work\\FinalProject\\src\\main\\resources\\connectionPool.properties"));
+            defaultPoolSize = Integer.valueOf(PROPERTIES.getProperty("db.connections_value"));
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(),e);
+        }
+    }
 
-
-    private ConnectionPool(int poolSize) {
+    private ConnectionPool() {
         availableConnections = new ArrayDeque<>();
         connectionsInUse = new ArrayDeque<>();
-        connectionSemaphore = new Semaphore(poolSize);
+        connectionSemaphore = new Semaphore(defaultPoolSize);
     }
 
     public static ConnectionPool getInstance() throws DaoException {
@@ -29,8 +43,8 @@ public class ConnectionPool {
             try {
                 REENTRANT_LOCK.lock();
                 if (instance == null) {
-                    instance = new ConnectionPool(DEFAULT_POOL_SIZE);
-                    instance.initializeConnections(DEFAULT_POOL_SIZE);
+                    instance = new ConnectionPool();
+                    instance.initializeConnections(defaultPoolSize);
                 }
             } catch (SQLException | ClassNotFoundException exception) {
                 throw new DaoException(exception.getMessage(), exception);

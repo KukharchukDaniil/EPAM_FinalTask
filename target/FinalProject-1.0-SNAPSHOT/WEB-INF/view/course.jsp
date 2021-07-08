@@ -1,7 +1,7 @@
+<%@ page contentType="text/html;charset=utf-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="pagination" uri="https://epam.com/jsp/tlds/mytags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ page import="com.epam.entities.UserRole" %>
 <%@ page import="com.epam.entities.SolutionStatus" %>
 <c:set var="pageIndex" value="${not empty param.pageIndex?param.pageIndex : 1}"/>
@@ -9,7 +9,7 @@
 <fmt:setBundle basename="language" scope="session"/>
 <html>
 <head>
-    <meta charset='utf-8'>
+    <meta charset='UTF-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Main</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>

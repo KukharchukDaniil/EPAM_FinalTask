@@ -92,18 +92,17 @@ button:hover {
 }
 
 .locale {
-
     display: flex;
     flex-direction: column;
     width: fit-content;
-    background-color:var(--clr-container-secondary);
-    color:var(--clr-text-primary);
+    background-color: var(--clr-container-secondary);
+    color: var(--clr-text-primary);
     float: right;
     align-items: center;
     justify-content: center;
     position: relative;
-
     flex: 1 1 30%;
+    font-size: 1.5rem;
 }
 
 .locale-content{

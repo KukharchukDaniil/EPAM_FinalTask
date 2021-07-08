@@ -6,6 +6,7 @@ import com.epam.service.TaskService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 
 public class AddTaskCommand implements Command{
     public static final String TASK_NAME = "taskName";
@@ -15,6 +16,7 @@ public class AddTaskCommand implements Command{
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+
         String taskName = InjectionProtector.getSafeAttribute(request,TASK_NAME);
         String taskDescription = InjectionProtector.getSafeAttribute(request, TASK_DESCRIPTION);;
         Long courseId = Long.valueOf(request.getParameter(COURSE_ID));
@@ -24,3 +26,4 @@ public class AddTaskCommand implements Command{
         return CommandResult.redirect(CommandTypes.SHOW_COURSE, COMMAND_PARAMETER_COURSE_ID, String.valueOf(courseId));
     }
 }
+
