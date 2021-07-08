@@ -30,10 +30,15 @@ public class ShowManageCourseCommand implements Command{
         List<User> usersList = userService.findUsersByRoleAndPage(UserRole.TEACHER,pageIndex);
 
         Long courseId = Long.valueOf(request.getParameter("courseId"));
-//        String enrolledTeachers = new String();
-//        StringJoiner stringJoiner = new StringJoiner(resultString);
-        
+        StringBuilder stringBuilder = new StringBuilder();
+        for (User user : usersList) {
+            Long userId = user.getId();
+            if(courseService.isUserEnrolled(userId,courseId)){
+                stringBuilder.append(userId+",");
+            }
+        }
         Course course = courseService.getCourseById(courseId);
+        request.setAttribute("checkboxesToCheck",stringBuilder.toString());
         request.setAttribute("courseName",course.getCourseName());
         request.setAttribute("courseDescription",course.getDescription());
         request.setAttribute("usersList", usersList);

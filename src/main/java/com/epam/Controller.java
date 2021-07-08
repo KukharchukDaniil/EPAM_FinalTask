@@ -7,8 +7,8 @@ import com.epam.command.Destination;
 import com.epam.connection.ConnectionPool;
 import com.epam.exceptions.DaoException;
 import com.epam.exceptions.ServiceException;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
     private final CommandFactory commandFactory = new CommandFactory();
-    private final Logger LOGGER = LogManager.getLogger(Controller.class);
+    private final Logger LOGGER = LogManager.getLogger();
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

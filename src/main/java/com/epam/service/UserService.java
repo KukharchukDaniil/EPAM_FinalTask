@@ -70,6 +70,13 @@ public class UserService extends AbstractService<User>{
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), e);
         }
+    }public void removeUserFromCourse(Long userId, Long courseId) throws ServiceException {
+        try (DaoHelper daoHelper = getDaoHelper()) {
+            UserDao dao = (UserDao) daoHelper.create(getDaoType());
+            dao.removeByIdAndCourseId(userId,courseId);
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 
     public Boolean isUsernameUnique(String name) throws ServiceException {
@@ -82,5 +89,6 @@ public class UserService extends AbstractService<User>{
             throw new ServiceException(e.getMessage(), e);
         }
     }
+
 
 }

@@ -39,7 +39,9 @@
             <option>MATH</option>
         </select>
 
-        <input type="hidden" name="teachersList" id="teachersList">
+        <input type="hidden" name="checkboxesToCheck" id="checkboxesToCheck" value="${checkboxesToCheck}">
+        <input type="hidden" name="teachersListToEnroll" id="teachersListToEnroll">
+        <input type="hidden" name="teachersListToRemove" id="teachersListToRemove">
         <input type="hidden" name="courseId" value="${param.courseId}">
         <div class="wrapper">
 
@@ -86,7 +88,7 @@
     </form>
     <script>
         function checkLocalStorage() {
-            var checkboxesToCheck = localStorage.getItem("selectedUsers");
+            var checkboxesToCheck = localStorage.getItem("teachersListToEnroll");
             if (checkboxesToCheck != null) {
                 var usersList = checkboxesToCheck.split(",");
                 for (let i = 0; i < usersList.length; i++) {
@@ -99,10 +101,36 @@
             }
         }
 
+        function checkDefault() {
+            var checkboxesToCheck = document.getElementById("checkboxesToCheck");
+            var checkboxList = checkboxesToCheck.value.split(",");
+            if (checkboxList != null) {
+                for (let i = 0; i < checkboxList.length; i++) {
+                    var element = document.getElementById(checkboxList[i]);
+                    if(element!=null){
+                    element.click()
+                    }
+                }
+            }
+        }
+        checkDefault();
         checkLocalStorage();
 
+
         function checkboxOnClick(id) {
-            var storageInfo = localStorage.getItem("selectedUsers");
+            if (document.getElementById(id).checked === true) {
+
+                putIntoStorage("teachersListToEnroll", id);
+                removeFromStorage("teachersListToRemove", id)
+            } else {
+                putIntoStorage("teachersListToRemove", id);
+                removeFromStorage("teachersListToEnroll", id)
+            }
+
+        }
+
+        function removeFromStorage(storageCell, id) {
+            var storageInfo = localStorage.getItem(storageCell);
 
             if (storageInfo != null) {
                 var usersList = storageInfo.split(",");
@@ -110,31 +138,37 @@
             if (usersList == null) {
                 usersList = [];
             }
-            if (document.getElementById(id).checked === true) {
-
-                console.log("pushing");
-                usersList.push(id);
-                uniqueList = [...new Set(usersList)];
-                localStorage.setItem("selectedUsers", uniqueList);
-
-            } else {
-                console.log("removing");
-                var index = usersList.indexOf(id.toString());
-                while (index > -1) {
-                    usersList.splice(index, 1);
-                    index = usersList.indexOf(id.toString());
-                }
-                localStorage.setItem("selectedUsers", usersList);
+            var index = usersList.indexOf(id.toString());
+            while (index > -1) {
+                usersList.splice(index, 1);
+                index = usersList.indexOf(id.toString());
             }
-
+            localStorage.setItem(storageCell, usersList);
         }
 
-        function submitCourse() {
-            console.log("submitting");
-            var resultList = localStorage.getItem("selectedUsers");
-            if (resultList !== null) {
-                document.getElementById("teachersList").value = resultList.split(" ");
+        function putIntoStorage(storageCell, id) {
+            var storageInfo = localStorage.getItem(storageCell);
+
+            if (storageInfo != null) {
+                var usersList = storageInfo.split(",");
             }
+            if (usersList == null) {
+                usersList = [];
+            }
+            usersList.push(id);
+            var uniqueList = [...new Set(usersList)];
+            localStorage.setItem(storageCell, uniqueList);
+        }
+
+        function loadAttribute(destination){
+            var resultList = localStorage.getItem(destination);
+            if (resultList !== null) {
+                document.getElementById(destination).value = resultList.split(",");
+            }
+        }
+        function submitCourse() {
+            loadAttribute("teachersListToEnroll");
+            loadAttribute("teachersListToRemove");
             localStorage.clear();
             return true;
         }

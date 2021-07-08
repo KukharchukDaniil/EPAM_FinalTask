@@ -7,23 +7,27 @@ public class Course implements Entity{
     private final String courseName;
     private final String description;
     private final CourseCategory category;
+    private String image;
 
     public static final String ID = "id";
     public static final String COURSE_NAME = "course_name";
     public static final String DESCRIPTION = "course_description";
     public static final String CATEGORY = "course_category";
+    public static final String COURSE_IMAGE = "course_image";
 
-    public Course(long id, String courseName, String description, CourseCategory category) {
+    public Course(long id, String courseName, String description, CourseCategory category, String image) {
         this.id = id;
         this.courseName = courseName;
         this.description = description;
         this.category = category;
+        this.image = image;
     }
 
-    public Course(String courseName, String courseDescription, CourseCategory courseCategory) {
+    public Course(String courseName, String courseDescription, CourseCategory courseCategory, String image) {
         this.courseName = courseName;
         this.description = courseDescription;
         this.category = courseCategory;
+        this.image = image;
     }
 
     public String getCourseName() {
@@ -54,5 +58,13 @@ public class Course implements Entity{
     @Override
     public int hashCode() {
         return Objects.hash(id, courseName, description, category);
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

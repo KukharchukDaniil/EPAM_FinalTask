@@ -11,7 +11,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title></title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="../resources/main_contents.css"/>
+    <link rel="stylesheet" href="css/main_contents.css"/>
 </head>
 <body>
 <div class="tab-contents">

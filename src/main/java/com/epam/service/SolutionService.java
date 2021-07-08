@@ -22,13 +22,15 @@ public class SolutionService extends AbstractService<Solution> {
     public void commitSolution(Solution solution) throws ServiceException {
         try (DaoHelper helper = getDaoHelper()) {
             helper.startTransaction();
+
             SolutionDao dao = (SolutionDao) helper.create(getDaoType());
             Solution bufferSolution = solution;
+
             Optional<Solution> solutionFromDatabase = dao.getSolutionByUserIdAndTaskId(solution.getTaskId(), solution.getUserId());
             if(solutionFromDatabase.isPresent()){
                 bufferSolution.setId(solutionFromDatabase.get().getId());
             }
-            dao.save(solution);
+            dao.save(bufferSolution);
             helper.endTransaction();
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), e);

@@ -21,7 +21,7 @@
     <c:set var="pageIndex" value="${not empty param.pageIndex?param.pageIndex : 1}"/>
     <c:if test="${user.role == UserRole.ADMIN}">
         <a href="${context}/controller?command=showCreateCoursePage">
-            <div class="create btn">Create course</div>
+            <div class="create btn"><fmt:message key="label.create_course"/></div>
         </a>
     </c:if>
     <div>
@@ -40,7 +40,7 @@
                                     <div class="course-name">${course.courseName}</div>
                                     <c:if test="${user.role == UserRole.ADMIN}">
                                         <a href="${context}/controller?command=showManageCourse&courseId=${course.id}">
-                                            <div class="btn">Manage course</div>
+                                            <div class="btn"><fmt:message key="label.manage_course"/></div>
                                         </a>
                                     </c:if>
                                 </div>

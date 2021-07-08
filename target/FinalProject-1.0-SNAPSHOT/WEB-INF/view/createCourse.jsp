@@ -21,6 +21,7 @@
 <jsp:include page="header.jsp"/>
 <div class="container">
     <form action="${context}/controller" method="post" >
+        <input type="file" name="courseImage"/>
         <input type="hidden" name="command" value="createCourse">
         <input type="text" name="courseName" placeholder="<fmt:message key="label.course_name_placeholder"/>">
         <input type="text" name="courseDescription"

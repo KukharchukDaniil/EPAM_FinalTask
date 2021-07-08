@@ -43,4 +43,11 @@
         <error-code>404</error-code>
         <location>/WEB-INF/view/error.jsp</location>
     </error-page>
+    <context-param>
+        <description>Location to store uploaded file</description>
+        <param-name>file-upload</param-name>
+        <param-value>
+            D:\dev_tools\apache-tomcat-9.0.50\webapps\webapp\WEB-INF\images
+        </param-value>
+    </context-param>
 </web-app>

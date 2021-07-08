@@ -10,7 +10,7 @@ import java.util.Optional;
 public class SolutionDao extends AbstractDao<Solution> {
     private static final String TABLE_NAME = "solutions";
     private static final String UPDATE_SOLUTION = "UPDATE SOLUTIONS " +
-            "SET SOLUTION_STATUS = ?,VALUE = ?, MARK = ?, COMMENT = ?";
+            "SET SOLUTION_STATUS = ?,VALUE = ?, MARK = ?, COMMENT = ? WHERE id = ?";
     private static final String GET_BY_TASK_AND_USER = "SELECT * FROM SOLUTIONS WHERE TASK_ID = ? AND USER_ID = ?";
     private static final String INSERT_SOLUTION =
             "INSERT INTO SOLUTIONS(TASK_ID,USER_ID,SOLUTION_STATUS,VALUE,MARK,COMMENT) VALUES(?, ?, ?, ?,?,?)";
@@ -40,7 +40,8 @@ public class SolutionDao extends AbstractDao<Solution> {
                 entity.getStatus().toString().toLowerCase() ,
                 entity.getValue(),
                 entity.getMark(),
-                entity.getComment()
+                entity.getComment(),
+                entity.getId()
         );
     }
 

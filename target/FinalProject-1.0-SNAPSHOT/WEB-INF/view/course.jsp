@@ -168,7 +168,7 @@
 
                                     </c:if>
                                     <c:if test="${user.role == UserRole.ADMIN || user.role == UserRole.TEACHER}">
-                                        <a class="tab-button" style="background: #7d2626; text-decoration: none"
+                                        <a class="tab-button" style="background: #d65656; text-decoration: none"
                                            href="${pageContext.request.contextPath}/controller?command=deleteTask&taskId=${task.taskId}&courseId=${course.id}&pageIndex=${pageIndex}"><fmt:message
                                                 key="label.delete_task"/></a>
                                     </c:if>

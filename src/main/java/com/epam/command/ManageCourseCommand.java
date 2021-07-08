@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class ManageCourseCommand implements Command {
     private CourseService courseService;
     private UserService userService;
+
     public ManageCourseCommand(CourseService courseService, UserService userService) {
         this.courseService = courseService;
         this.userService = userService;
@@ -27,14 +28,30 @@ public class ManageCourseCommand implements Command {
         String courseCategory = request.getParameter("courseCategory");
         Long courseId = Long.parseLong(request.getParameter("courseId"));
         Course course = new Course(courseId, courseName,
-                courseDescription, CourseCategory.valueOf(courseCategory));
+                courseDescription, CourseCategory.valueOf(courseCategory), null);
         courseService.saveCourse(course);
-        String teachersListString = request.getParameter("teachersList");
-        if(teachersListString!=null) {
+        String teachersListToEnroll = request.getParameter("teachersListToEnroll");
+        String teachersListToRemove = request.getParameter("teachersListToRemove");
+        System.out.println(teachersListToRemove);
+        if (!teachersListToEnroll.isEmpty()) {
 
-            List<Long> teachersList = Arrays.stream(teachersListString.split(",")).map(Long::parseLong).collect(Collectors.toList());
+            List<Long> teachersList = Arrays.stream(teachersListToEnroll.split(",")).filter(s -> {
+                return !s.isEmpty();
+            }).map(Long::parseLong).collect(Collectors.toList());
             for (Long teacherId : teachersList) {
-                userService.enrollOnCourse(courseId, teacherId);
+                if (!courseService.isUserEnrolled(teacherId, courseId)) {
+                    userService.enrollOnCourse(courseId, teacherId);
+                }
+            }
+        }
+        if (!teachersListToRemove.isEmpty()) {
+            List<Long> teachersList = Arrays.stream(teachersListToRemove.split(",")).filter(s -> {
+                return !s.isEmpty();
+            }).map(Long::parseLong).collect(Collectors.toList());
+            for (Long teacherId : teachersList) {
+                if (courseService.isUserEnrolled(teacherId, courseId)) {
+                    userService.removeUserFromCourse(teacherId, courseId);
+                }
             }
         }
         return CommandResult.redirect(CommandTypes.SHOW_MAIN_PAGE);

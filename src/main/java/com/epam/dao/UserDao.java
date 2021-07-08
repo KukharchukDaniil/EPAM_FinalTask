@@ -20,6 +20,7 @@ public class UserDao extends AbstractDao<User> {
     private static final String COUNT_USERS_BY_ROLE = "SELECT COUNT(*) FROM courses_db.users WHERE role = '%s'";
     private static final String COUNT_USERS_BY_USERNAME = "SELECT COUNT(*) FROM courses_db.users WHERE username = '%s'";
     private static final Integer ITEMS_PER_PAGE = 10;
+    private static final String DELETE_USER_FROM_COURSE ="DELETE FROM courses_db.users_courses WHERE user_id = ? AND course_id = ?"; ;
 
     public UserDao(Connection connection, UserRowMapper userRowMapper) {
         super(connection, userRowMapper);
@@ -71,5 +72,9 @@ public class UserDao extends AbstractDao<User> {
     public Integer countUsersByUsername(String username) throws DaoException {
         String query = String.format(COUNT_USERS_BY_ROLE, username.toLowerCase());
         return countQuery(query);
+    }
+
+    public void removeByIdAndCourseId(Long userId, Long courseId) throws DaoException {
+        executeUpdate(DELETE_USER_FROM_COURSE, userId, courseId);
     }
 }
