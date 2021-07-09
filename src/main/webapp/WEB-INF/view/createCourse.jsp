@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="https://epam.com/jsp/tlds/mytags" prefix="pagination" %>
-<%@ page import="com.epam.entities.UserRole" %>
+<%@ page import="com.epam.ftask.entities.UserRole" %>
 <fmt:setLocale value="${not empty sessionScope.locale? sessionScope.locale:'en_US'}" scope="session"/>
 <fmt:setBundle basename="language" scope="session"/>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
@@ -22,9 +22,9 @@
 <div class="container">
     <form action="${context}/controller" method="post" >
         <input type="hidden" name="command" value="createCourse">
-        <input type="text" name="courseName" pattern="[^<>/]" placeholder="<fmt:message key="label.course_name_placeholder"/>">
-        <input type="text" name="courseDescription" pattern="[^<>/]"
-               placeholder="<fmt:message key="label.course_description_placeholder"/>">
+        <input name="courseName" placeholder="<fmt:message key="label.course_name_placeholder"/>" required type="text">
+        <input name="courseDescription" placeholder="<fmt:message key="label.course_description_placeholder"/>" required
+               type="text">
         <select name="courseCategory">
             <option>BIOLOGY</option>
             <option>CHEMISTRY</option>

@@ -2,8 +2,8 @@
 <%@ taglib prefix="pagination" uri="https://epam.com/jsp/tlds/mytags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<%@ page import="com.epam.entities.UserRole" %>
-<%@ page import="com.epam.entities.SolutionStatus" %>
+<%@ page import="com.epam.ftask.entities.UserRole" %>
+<%@ page import="com.epam.ftask.entities.SolutionStatus" %>
 <c:set var="pageIndex" value="${not empty param.pageIndex?param.pageIndex : 1}"/>
 <fmt:setLocale value="${not empty sessionScope.locale? sessionScope.locale:'en_US'}" scope="session"/>
 <fmt:setBundle basename="language" scope="session"/>
@@ -59,7 +59,7 @@
                         <input type="hidden" value="${dto.userId}" name="userId"/>
                         <input type="hidden" value="${course.id}" name="courseId"/>
                         <textarea name="solutionComment" placeholder="<fmt:message key="label.comment"/>"></textarea>
-                        <input max="10" min="0" name="solutionMark" required="true" type="number"
+                        <input max="10" min="1" name="solutionMark" required type="number"
                                placeholder="<fmt:message key="label.mark"/>.."/>
                         <input type="submit" value="<fmt:message key="label.submit"/>"/>
                     </form>
@@ -85,9 +85,7 @@
                 <div class="description">${course.description}</div>
             </div>
             <div class="tabcontent" id="Solutions">
-                <c:if test="${solutionTaskDtoList.isEmpty()}">
-                    <div class="task-name"><fmt:message key="label.no_solution"/></div>
-                </c:if>
+
                 <div class="wrapper">
                     <div class="table">
 
@@ -98,16 +96,17 @@
                             <div class="cell"><fmt:message key="label.description"/></div>
                             <div class="cell"></div>
                         </div>
-
-                        <c:if test="${solutionTaskDtoList.isEmpty()}">
-                            <div class="task-name"><fmt:message key="label.no_task"/></div>
-                        </c:if>
+                        <div class="row">
+                            <c:if test="${solutionTaskDtoList.isEmpty()}">
+                                <div class="task-name"><fmt:message key="label.no_solution"/></div>
+                            </c:if>
+                        </div>
 
                         <c:forEach var="solution" items="${solutionTaskDtoList}">
                             <div class="row">
                                 <div class="cell">${solution.taskName}</div>
                                 <div class="cell">${solution.solutionStatus}</div>
-                                <div class="cell">${solution.solutionMark}</div>
+                                <div class="cell">${solution.solutionMark!=0?solution.solutionMark:""}</div>
                                 <div class="cell">${solution.taskDescription}</div>
 
                                     <div class="cell">

@@ -9,7 +9,7 @@
     <uri>https://epam.com/jsp/tlds/mytags</uri>
     <tag>
         <name>load</name>
-        <tag-class>com.epam.tag.PaginationTag</tag-class>
+        <tag-class>com.epam.ftask.tag.PaginationTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>uri</name>

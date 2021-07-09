@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="https://epam.com/jsp/tlds/mytags" prefix="pagination" %>
-<%@ page import="com.epam.entities.UserRole" %>
+<%@ page import="com.epam.ftask.entities.UserRole" %>
 <fmt:setLocale value="${not empty sessionScope.locale? sessionScope.locale:'en_US'}" scope="session"/>
 <fmt:setBundle basename="language" scope="session"/>
 <c:set var="context" value="${pageContext.request.contextPath}"/>

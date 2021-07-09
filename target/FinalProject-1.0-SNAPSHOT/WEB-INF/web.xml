@@ -9,7 +9,7 @@
 
     <filter>
         <filter-name>login</filter-name>
-        <filter-class>com.epam.filters.AuthorisationFilter</filter-class>
+        <filter-class>com.epam.ftask.filters.AuthorisationFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -18,7 +18,7 @@
     </filter-mapping>
     <filter>
         <filter-name>role</filter-name>
-        <filter-class>com.epam.filters.RoleFilter</filter-class>
+        <filter-class>com.epam.ftask.filters.RoleFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>role</filter-name>
@@ -26,7 +26,7 @@
     </filter-mapping>
     <servlet>
         <servlet-name>webapp</servlet-name>
-        <servlet-class>com.epam.Controller</servlet-class>
+        <servlet-class>com.epam.ftask.Controller</servlet-class>
     </servlet>
 
     <servlet-mapping>

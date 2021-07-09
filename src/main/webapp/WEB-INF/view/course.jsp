@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="pagination" uri="https://epam.com/jsp/tlds/mytags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="com.epam.entities.UserRole" %>
-<%@ page import="com.epam.entities.SolutionStatus" %>
+<%@ page import="com.epam.ftask.entities.UserRole" %>
+<%@ page import="com.epam.ftask.entities.SolutionStatus" %>
 <c:set var="pageIndex" value="${not empty param.pageIndex?param.pageIndex : 1}"/>
 <fmt:setLocale value="${not empty sessionScope.locale? sessionScope.locale:'en_US'}" scope="session"/>
 <fmt:setBundle basename="language" scope="session"/>

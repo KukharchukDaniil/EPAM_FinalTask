@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="https://epam.com/jsp/tlds/mytags" prefix="pagination" %>
-<%@ page import="com.epam.entities.UserRole" %>
+<%@ page import="com.epam.ftask.entities.UserRole" %>
 <fmt:setLocale value="${not empty sessionScope.locale? sessionScope.locale:'en_US'}" scope="session"/>
 <fmt:setBundle basename="language" scope="session"/>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
@@ -24,12 +24,13 @@
                 key="label.delete_course"/></a>
         <input type="hidden" name="command" value="manageCourse">
 
-        <input type="text" name="courseName" pattern="[^<>/]" value="${courseName}"
-               placeholder="<fmt:message key="label.course_name_placeholder"/>">
+        <input name="courseName" placeholder="<fmt:message key="label.course_name_placeholder"/>" type="text"
+               value="${courseName}">
 
 
-        <input type="text" name="courseDescription" pattern="[^<>]" value="${courseDescription}"
-               placeholder="<fmt:message key="label.course_description_placeholder"/>">
+        <input name="courseDescription" placeholder="<fmt:message key="label.course_description_placeholder"/>"
+               type="text"
+               value="${courseDescription}">
 
 
         <select name="courseCategory">
